@@ -70,25 +70,25 @@ public class Photo extends DataObject {
     @Parent
     Key parent = ObjectManager.applicationRootKey;
 
-    private PhotoId id = null;
-    private String ownerId;
-    private boolean ownerNotifyAboutPraise = false;
-    private EmailAddress ownerEmailAddress = EmailAddress.EMPTY;
-    private Language ownerLanguage = Language.ENGLISH;
-    private int width;
-    private int height;
-    private PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
-    private Tags tags = Tags.EMPTY_TAGS;
-    private PhotoStatus status = PhotoStatus.VISIBLE;
-    private int praiseSum = 10;
-    private int noVotes = 1;
-    private int noVotesAtLastNotification = 1;
-    private long creationTime = System.currentTimeMillis();
-    private Location location;
+    protected PhotoId id = null;
+    protected String ownerId;
+    protected boolean ownerNotifyAboutPraise = false;
+    protected EmailAddress ownerEmailAddress = EmailAddress.EMPTY;
+    protected Language ownerLanguage = Language.ENGLISH;
+    protected int width;
+    protected int height;
+    protected PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
+    protected Tags tags = Tags.EMPTY_TAGS;
+    protected PhotoStatus status = PhotoStatus.VISIBLE;
+    protected int praiseSum = 10;
+    protected int noVotes = 1;
+    protected int noVotesAtLastNotification = 1;
+    protected long creationTime = System.currentTimeMillis();
+    protected Location location;
     /**
      * The default type is jpg
      */
-    private String ending = "jpg";
+    protected String ending = "jpg";
     //TODO: change it to a single long
     @Id
     private Long idLong;
