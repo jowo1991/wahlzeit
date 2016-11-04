@@ -50,7 +50,6 @@ public abstract class ModelMain extends AbstractMain {
 		log.info("AbstractMain.startUp completed");
 
 		log.config(LogBuilder.createSystemMessage().addAction("load image storage").toString());
-		//GcsAdapter.Builder gcsAdapterBuilder = new GcsAdapter.Builder();
 		ImageStorage.setInstance(new DatastoreAdapter());
 
 		log.config(LogBuilder.createSystemMessage().addAction("load globals").toString());

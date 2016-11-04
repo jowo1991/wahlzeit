@@ -22,19 +22,10 @@ package org.wahlzeit.services.mailing;
 
 import org.wahlzeit.main.ServiceMain;
 
-/**
- *
- */
 public class EmailServiceManager {
 
-	/**
-	 *
-	 */
 	protected static EmailServiceManager instance = null;
 
-	/**
-	 *
-	 */
 	protected static synchronized EmailServiceManager getInstance() {
 		if (instance == null) {
 			setInstance(new EmailServiceManager());
@@ -42,35 +33,20 @@ public class EmailServiceManager {
 		return instance;
 	}
 
-	/**
-	 *
-	 */
 	protected static void setInstance(EmailServiceManager manager) {
 		instance = manager;
 	}
 
-	/**
-	 *
-	 */
 	public static EmailService getDefaultService() {
 		return getInstance().doGetDefaultService();
 	}
 
-	/**
-	 *
-	 */
 	protected EmailService defaultService = null;
 
-	/**
-	 *
-	 */
 	protected EmailServiceManager() {
 		initDefaultService();
 	}
 
-	/**
-	 *
-	 */
 	protected void initDefaultService() {
 		boolean isInProduction = ServiceMain.getInstance().isInProduction();
 		if (isInProduction) {
@@ -80,9 +56,6 @@ public class EmailServiceManager {
 		}
 	}
 
-	/**
-	 *
-	 */
 	protected EmailService doGetDefaultService() {
 		return defaultService;
 	}
