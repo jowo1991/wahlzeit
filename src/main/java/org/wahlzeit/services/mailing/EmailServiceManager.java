@@ -22,42 +22,48 @@ package org.wahlzeit.services.mailing;
 
 import org.wahlzeit.main.ServiceMain;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class EmailServiceManager {
 
-	protected static EmailServiceManager instance = null;
+    protected static EmailServiceManager instance = null;
+    protected static Lock instanceLock = new ReentrantLock();
 
-	protected static synchronized EmailServiceManager getInstance() {
-		if (instance == null) {
-			setInstance(new EmailServiceManager());
-		}
-		return instance;
-	}
+    protected static EmailServiceManager testingInstance = null;
+    protected static Lock testingInstanceLock = new ReentrantLock();
 
-	protected static void setInstance(EmailServiceManager manager) {
-		instance = manager;
-	}
+    protected EmailService defaultService = null;
 
-	public static EmailService getDefaultService() {
-		return getInstance().doGetDefaultService();
-	}
+    protected EmailServiceManager(boolean isInProduction) {
+        if (isInProduction) {
+            defaultService = new SmtpEmailService();
+        } else {
+            defaultService = new LoggingEmailService(new MockEmailService());
+        }
+    }
 
-	protected EmailService defaultService = null;
+    public static EmailService getDefaultService() {
+        // The lock (or synchronized) mechanism is necessary to ensure thread safety!
+        instanceLock.lock();
+        if (instance == null) {
+            boolean isInProduction = ServiceMain.getInstance().isInProduction();
+            instance = new EmailServiceManager(isInProduction);
+        }
+        instanceLock.unlock();
 
-	protected EmailServiceManager() {
-		initDefaultService();
-	}
+        return instance.defaultService;
+    }
 
-	protected void initDefaultService() {
-		boolean isInProduction = ServiceMain.getInstance().isInProduction();
-		if (isInProduction) {
-			defaultService = new SmtpEmailService();
-		} else {
-			defaultService = new LoggingEmailService(new MockEmailService());
-		}
-	}
+    public static EmailService getTestingService() {
+        // The lock (or synchronized) mechanism is necessary to ensure thread safety!
+        //(Strictly speaking that wouldn't be necessary for the MockEmailService because it's not expensive to create)
+        testingInstanceLock.lock();
+        if(testingInstance == null) {
+            testingInstance = new EmailServiceManager(false);
+        }
+        testingInstanceLock.unlock();
 
-	protected EmailService doGetDefaultService() {
-		return defaultService;
-	}
-
+        return testingInstance.defaultService;
+    }
 }
