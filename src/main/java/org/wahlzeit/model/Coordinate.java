@@ -6,7 +6,7 @@ package org.wahlzeit.model;
  * <a href="https://osm.rrze.fau.de/map-ll-osm?mlat=49.575103&mlon=11.030055&zoom=17">Mensa in Erlangen</a>.
  */
 public class Coordinate {
-    public static final int EARTH_RADIUS = 6371000;
+    public static final double EARTH_RADIUS_IN_METERS = 6371000.00;
 
     private final double latitude;
     private final double longitude;
@@ -38,7 +38,7 @@ public class Coordinate {
 
         double deltaSigma = Math.acos(productLatitudes + product2);
 
-        return EARTH_RADIUS * deltaSigma;
+        return EARTH_RADIUS_IN_METERS * deltaSigma;
     }
 
     /**
