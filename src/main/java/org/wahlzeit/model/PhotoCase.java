@@ -22,6 +22,8 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import org.wahlzeit.model.enums.FlagReason;
+import org.wahlzeit.model.enums.PhotoStatus;
 
 /**
  * A photo case is a case where someone flagged a photo as inappropriate.

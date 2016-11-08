@@ -22,7 +22,7 @@ package org.wahlzeit.webparts;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import org.wahlzeit.services.ConfigDir;
+import org.wahlzeit.services.config.ConfigDir;
 import org.wahlzeit.services.LogBuilder;
 
 import java.io.File;

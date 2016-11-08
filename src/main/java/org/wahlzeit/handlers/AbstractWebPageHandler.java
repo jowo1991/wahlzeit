@@ -20,12 +20,12 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.Client;
-import org.wahlzeit.model.ModelConfig;
-import org.wahlzeit.model.UserSession;
-import org.wahlzeit.services.ConfigDir;
-import org.wahlzeit.services.Language;
-import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.model.users.Client;
+import org.wahlzeit.services.config.ModelConfig;
+import org.wahlzeit.model.users.UserSession;
+import org.wahlzeit.services.config.ConfigDir;
+import org.wahlzeit.model.enums.Language;
+import org.wahlzeit.services.config.SysConfig;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 

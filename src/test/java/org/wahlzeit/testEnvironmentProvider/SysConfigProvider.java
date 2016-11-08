@@ -1,7 +1,7 @@
 package org.wahlzeit.testEnvironmentProvider;
 
 import org.junit.rules.ExternalResource;
-import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.config.SysConfig;
 import org.wahlzeit.webparts.WebPartTemplateService;
 
 /**

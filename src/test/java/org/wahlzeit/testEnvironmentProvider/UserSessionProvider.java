@@ -3,12 +3,12 @@ package org.wahlzeit.testEnvironmentProvider;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
 import org.junit.rules.ExternalResource;
-import org.wahlzeit.model.EnglishModelConfig;
-import org.wahlzeit.model.GermanModelConfig;
-import org.wahlzeit.model.Guest;
-import org.wahlzeit.model.LanguageConfigs;
-import org.wahlzeit.model.UserSession;
-import org.wahlzeit.services.Language;
+import org.wahlzeit.services.config.EnglishModelConfig;
+import org.wahlzeit.services.config.GermanModelConfig;
+import org.wahlzeit.model.users.Guest;
+import org.wahlzeit.services.config.LanguageConfigs;
+import org.wahlzeit.model.users.UserSession;
+import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.services.SessionManager;
 
 import javax.servlet.http.HttpSession;

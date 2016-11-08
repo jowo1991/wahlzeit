@@ -4,6 +4,7 @@ import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.wahlzeit.model.CaseId;
+import org.wahlzeit.model.users.Session;
 import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;
 import org.wahlzeit.testEnvironmentProvider.SysConfigProvider;

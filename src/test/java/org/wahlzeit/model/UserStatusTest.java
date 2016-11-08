@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+import org.wahlzeit.model.enums.UserStatus;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

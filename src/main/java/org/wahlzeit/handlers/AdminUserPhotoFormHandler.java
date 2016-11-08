@@ -21,12 +21,12 @@
 package org.wahlzeit.handlers;
 
 import org.wahlzeit.agents.AsyncTaskExecutor;
-import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.enums.AccessRights;
 import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.PhotoManager;
-import org.wahlzeit.model.PhotoStatus;
+import org.wahlzeit.services.PhotoManager;
+import org.wahlzeit.model.enums.PhotoStatus;
 import org.wahlzeit.model.Tags;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.users.UserSession;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.webparts.WebPart;
 

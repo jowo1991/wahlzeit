@@ -21,8 +21,8 @@
 package org.wahlzeit.tools;
 
 import org.wahlzeit.main.ScriptMain;
-import org.wahlzeit.model.GlobalsManager;
-import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.GlobalsManager;
+import org.wahlzeit.services.config.SysConfig;
 
 import java.io.File;
 

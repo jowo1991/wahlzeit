@@ -20,7 +20,7 @@
 
 package org.wahlzeit.services.mailing;
 
-import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.model.EmailAddress;
 
 import javax.mail.Message;
 

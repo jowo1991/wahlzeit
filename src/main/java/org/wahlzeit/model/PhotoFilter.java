@@ -21,6 +21,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.services.PhotoManager;
 import org.wahlzeit.utils.StringUtil;
 
 import java.io.Serializable;

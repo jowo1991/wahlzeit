@@ -2,9 +2,9 @@ package org.wahlzeit.servlets;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
-import org.wahlzeit.model.Client;
-import org.wahlzeit.model.Guest;
-import org.wahlzeit.model.UserManager;
+import org.wahlzeit.model.users.Client;
+import org.wahlzeit.model.users.Guest;
+import org.wahlzeit.services.UserManager;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
 

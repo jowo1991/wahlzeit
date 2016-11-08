@@ -21,7 +21,7 @@ package org.wahlzeit.services.mailing;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.model.EmailAddress;
 
 import static org.junit.Assert.*;
 

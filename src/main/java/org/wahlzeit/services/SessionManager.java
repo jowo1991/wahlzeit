@@ -20,6 +20,8 @@
 
 package org.wahlzeit.services;
 
+import org.wahlzeit.model.users.Session;
+
 /**
  * A manager for Session objects (user (web) sessions, agent threads, etc.) Clients can look up the session by thread.
  */

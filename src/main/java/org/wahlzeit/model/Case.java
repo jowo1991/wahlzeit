@@ -20,7 +20,7 @@
 
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
+import org.wahlzeit.model.persistence.DataObject;
 
 /**
  * A case is a user complaint, most notably about an inappropriate photo.

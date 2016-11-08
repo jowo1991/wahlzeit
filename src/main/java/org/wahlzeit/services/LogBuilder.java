@@ -1,8 +1,8 @@
 package org.wahlzeit.services;
 
-import org.wahlzeit.model.Client;
-import org.wahlzeit.model.UserManager;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.users.Session;
+import org.wahlzeit.model.users.UserSession;
+import org.wahlzeit.model.users.Client;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

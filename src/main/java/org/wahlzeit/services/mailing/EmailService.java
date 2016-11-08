@@ -20,7 +20,7 @@
 
 package org.wahlzeit.services.mailing;
 
-import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.model.EmailAddress;
 
 /**
  * An EmailServer can send emails. Various implementations exist.

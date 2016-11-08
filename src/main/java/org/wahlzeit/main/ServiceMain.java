@@ -21,14 +21,14 @@
 package org.wahlzeit.main;
 
 import org.wahlzeit.handlers.*;
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.EnglishModelConfig;
-import org.wahlzeit.model.GermanModelConfig;
-import org.wahlzeit.model.LanguageConfigs;
-import org.wahlzeit.services.ConfigDir;
-import org.wahlzeit.services.Language;
+import org.wahlzeit.model.enums.AccessRights;
+import org.wahlzeit.services.config.EnglishModelConfig;
+import org.wahlzeit.services.config.GermanModelConfig;
+import org.wahlzeit.services.config.LanguageConfigs;
+import org.wahlzeit.services.config.ConfigDir;
+import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.services.LogBuilder;
-import org.wahlzeit.services.SysConfig;
+import org.wahlzeit.services.config.SysConfig;
 import org.wahlzeit.webparts.WebPartTemplateService;
 
 import java.util.logging.Logger;

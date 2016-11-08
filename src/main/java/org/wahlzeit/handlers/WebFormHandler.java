@@ -20,7 +20,7 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.users.UserSession;
 
 import java.util.Map;
 

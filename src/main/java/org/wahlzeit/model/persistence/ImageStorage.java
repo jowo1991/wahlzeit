@@ -1,6 +1,6 @@
 package org.wahlzeit.model.persistence;
 
-import org.wahlzeit.model.PhotoSize;
+import org.wahlzeit.model.enums.PhotoSize;
 import org.wahlzeit.services.LogBuilder;
 
 import java.io.IOException;

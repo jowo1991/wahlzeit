@@ -20,14 +20,14 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.ModelConfig;
+import org.wahlzeit.model.enums.AccessRights;
+import org.wahlzeit.services.config.ModelConfig;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
-import org.wahlzeit.model.PhotoManager;
-import org.wahlzeit.model.User;
-import org.wahlzeit.model.UserManager;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.PhotoManager;
+import org.wahlzeit.model.users.User;
+import org.wahlzeit.services.UserManager;
+import org.wahlzeit.model.users.UserSession;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.utils.StringUtil;

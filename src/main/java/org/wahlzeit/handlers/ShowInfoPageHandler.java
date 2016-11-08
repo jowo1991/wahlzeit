@@ -20,8 +20,8 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.enums.AccessRights;
+import org.wahlzeit.model.users.UserSession;
 import org.wahlzeit.webparts.WebPart;
 
 

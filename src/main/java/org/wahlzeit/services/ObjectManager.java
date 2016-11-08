@@ -22,6 +22,7 @@ package org.wahlzeit.services;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import org.wahlzeit.model.persistence.Persistent;
 
 import java.util.Collection;
 import java.util.List;

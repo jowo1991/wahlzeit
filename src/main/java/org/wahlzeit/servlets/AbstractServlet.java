@@ -21,9 +21,9 @@
 package org.wahlzeit.servlets;
 
 import org.wahlzeit.main.ServiceMain;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.users.UserSession;
 import org.wahlzeit.services.LogBuilder;
-import org.wahlzeit.services.Session;
+import org.wahlzeit.model.users.Session;
 import org.wahlzeit.services.SessionManager;
 import org.wahlzeit.utils.StringUtil;
 import org.wahlzeit.webparts.WebPart;

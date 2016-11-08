@@ -20,12 +20,12 @@
 
 package org.wahlzeit.main;
 
-import org.wahlzeit.model.GlobalsManager;
-import org.wahlzeit.model.PhotoCaseManager;
-import org.wahlzeit.model.PhotoFactory;
-import org.wahlzeit.model.PhotoManager;
-import org.wahlzeit.model.User;
-import org.wahlzeit.model.UserManager;
+import org.wahlzeit.services.GlobalsManager;
+import org.wahlzeit.services.PhotoCaseManager;
+import org.wahlzeit.utils.PhotoFactory;
+import org.wahlzeit.services.PhotoManager;
+import org.wahlzeit.model.users.User;
+import org.wahlzeit.services.UserManager;
 import org.wahlzeit.model.persistence.DatastoreAdapter;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;

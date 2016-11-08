@@ -20,10 +20,10 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.AccessRights;
+import org.wahlzeit.model.enums.AccessRights;
 import org.wahlzeit.model.PhotoCase;
-import org.wahlzeit.model.PhotoCaseManager;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.services.PhotoCaseManager;
+import org.wahlzeit.model.users.UserSession;
 import org.wahlzeit.utils.HtmlUtil;
 import org.wahlzeit.webparts.WebPart;
 import org.wahlzeit.webparts.Writable;

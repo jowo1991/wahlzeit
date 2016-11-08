@@ -21,6 +21,7 @@
 package org.wahlzeit.services;
 
 import junit.framework.TestCase;
+import org.wahlzeit.model.EmailAddress;
 
 /**
  * Test cases for the EmailAddress class.
