@@ -42,7 +42,7 @@ public class PhotoCase extends Case {
 	public static final String DECIDED_ON = "decidedOn";
 	protected CaseId id = CaseId.NULL_ID; // case id
 	protected int applicationId = 0; // application id (unused on Java level)
-	protected Photo photo = null; // photo id -> photo
+	protected LandscapePhoto photo = null; // photo id -> photo
 	protected String flagger = "unknown";
 	protected FlagReason reason = FlagReason.OTHER;
 	protected String explanation = "none";
@@ -60,7 +60,8 @@ public class PhotoCase extends Case {
 	 */
 	public PhotoCase(Photo myPhoto) {
 		id = getNextCaseId();
-		photo = myPhoto;
+		// To persist the "photo" in the GAE storage we unfortunately need to use the *actual* implementation
+		photo = (LandscapePhoto)myPhoto;
 
 		incWriteCount();
 	}

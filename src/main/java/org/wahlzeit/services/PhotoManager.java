@@ -157,16 +157,16 @@ public class PhotoManager extends ObjectManager {
 	 * Load all persisted photos. Executed when Wahlzeit is restarted.
 	 */
 	public void loadPhotos() {
-		Collection<Photo> existingPhotos = ObjectifyService.run(new Work<Collection<Photo>>() {
+		Collection<LandscapePhoto> existingPhotos = ObjectifyService.run(new Work<Collection<LandscapePhoto>>() {
 			@Override
-			public Collection<Photo> run() {
-				Collection<Photo> existingPhotos = new ArrayList<Photo>();
-				readObjects(existingPhotos, Photo.class);
+			public Collection<LandscapePhoto> run() {
+				Collection<LandscapePhoto> existingPhotos = new ArrayList<>();
+				readObjects(existingPhotos, LandscapePhoto.class);
 				return existingPhotos;
 			}
 		});
 
-		for (Photo photo : existingPhotos) {
+		for (LandscapePhoto photo : existingPhotos) {
 			if (!doHasPhoto(photo.getId())) {
 				log.config(LogBuilder.createSystemMessage().
 						addParameter("Load Photo with ID", photo.getIdAsString()).toString());

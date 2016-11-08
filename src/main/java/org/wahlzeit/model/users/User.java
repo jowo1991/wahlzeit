@@ -23,12 +23,13 @@ package org.wahlzeit.model.users;
 import com.google.appengine.api.images.Image;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Subclass;
+import org.wahlzeit.model.LandscapePhoto;
 import org.wahlzeit.model.enums.AccessRights;
 import org.wahlzeit.model.enums.Gender;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.enums.UserStatus;
-import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.Language;
+import org.wahlzeit.model.EmailAddress;
+import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.Arrays;
@@ -73,10 +74,13 @@ public class User extends Client {
 	protected UserStatus status = UserStatus.CREATED;
 
 	/**
-	 *
+	 *  To persist the "photo" in the GAE storage we unfortunately need to use the *actual* implementation
 	 */
-	protected Photo userPhoto = null;
-	protected Set<Photo> photos = new HashSet<Photo>();
+	protected LandscapePhoto userPhoto = null;
+	/**
+	 *  To persist the "photo" in the GAE storage we unfortunately need to use the *actual* implementation
+	 */
+	protected Set<LandscapePhoto> photos = new HashSet<>();
 	@Ignore // only used as temporary variable
 	protected Image uploadedImage = null;
 
@@ -131,7 +135,7 @@ public class User extends Client {
 
 	@Override
 	protected void doSetLanguage(Language newLanguage) {
-		for (Iterator<Photo> i = photos.iterator(); i.hasNext(); ) {
+		for (Iterator<LandscapePhoto> i = photos.iterator(); i.hasNext(); ) {
 			Photo photo = i.next();
 			photo.setOwnerLanguage(language);
 		}
@@ -150,7 +154,7 @@ public class User extends Client {
 	public void setNotifyAboutPraise(boolean notify) {
 		notifyAboutPraise = notify;
 
-		for (Iterator<Photo> i = photos.iterator(); i.hasNext(); ) {
+		for (Iterator<LandscapePhoto> i = photos.iterator(); i.hasNext(); ) {
 			Photo photo = i.next();
 			photo.setOwnerNotifyAboutPraise(notifyAboutPraise);
 		}
@@ -221,7 +225,7 @@ public class User extends Client {
 	 * @methodtype set
 	 */
 	public void setUserPhoto(Photo newPhoto) {
-		userPhoto = newPhoto;
+		userPhoto = (LandscapePhoto) newPhoto;
 		log.info("SetUserPhoto: " + newPhoto.getIdAsString());
 		incWriteCount();
 	}
@@ -237,7 +241,7 @@ public class User extends Client {
 	 * @methodtype set
 	 */
 	public void addPhoto(Photo newPhoto) {
-		photos.add(newPhoto);
+		photos.add((LandscapePhoto)newPhoto);
 
 		newPhoto.setOwnerId(id);
 		newPhoto.setOwnerNotifyAboutPraise(notifyAboutPraise);

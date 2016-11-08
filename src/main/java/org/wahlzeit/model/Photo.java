@@ -20,265 +20,118 @@
 
 package org.wahlzeit.model;
 
-import com.google.api.client.util.ArrayMap;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.images.Image;
 import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Ignore;
-import com.googlecode.objectify.annotation.Parent;
 import org.wahlzeit.model.enums.PhotoSize;
 import org.wahlzeit.model.enums.PhotoStatus;
+import org.wahlzeit.model.persistence.Persistent;
 import org.wahlzeit.services.config.ModelConfig;
-import org.wahlzeit.model.persistence.DataObject;
-import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.Language;
-import org.wahlzeit.services.ObjectManager;
-import org.wahlzeit.services.UserManager;
-
-import java.util.Map;
+import org.wahlzeit.model.enums.Language;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
  */
-@Entity
-public class Photo extends DataObject {
+public interface Photo extends Persistent {
+    String ID = "id";
+    String IMAGE = "image";
+    String THUMB = "thumb";
+    String LINK = "link";
+    String PRAISE = "praise";
+    String NO_VOTES = "noVotes";
+    String CAPTION = "caption";
+    String DESCRIPTION = "description";
+    String KEYWORDS = "keywords";
 
-    public static final String IMAGE = "image";
-    public static final String THUMB = "thumb";
-    public static final String LINK = "link";
-    public static final String PRAISE = "praise";
-    public static final String NO_VOTES = "noVotes";
-    public static final String CAPTION = "caption";
-    public static final String DESCRIPTION = "description";
-    public static final String KEYWORDS = "keywords";
+    String TAGS = "tags";
+    String OWNER_ID = "ownerId";
 
-    public static final String TAGS = "tags";
-    public static final String OWNER_ID = "ownerId";
+    String STATUS = "status";
+    String IS_INVISIBLE = "isInvisible";
+    String UPLOADED_ON = "uploadedOn";
 
-    public static final String STATUS = "status";
-    public static final String IS_INVISIBLE = "isInvisible";
-    public static final String UPLOADED_ON = "uploadedOn";
+    int MAX_PHOTO_WIDTH = 420;
+    int MAX_PHOTO_HEIGHT = 600;
+    int MAX_THUMB_PHOTO_WIDTH = 105;
+    int MAX_THUMB_PHOTO_HEIGHT = 150;
 
-    public static final int MAX_PHOTO_WIDTH = 420;
-    public static final int MAX_PHOTO_HEIGHT = 600;
-    public static final int MAX_THUMB_PHOTO_WIDTH = 105;
-    public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
+    Image getImage(PhotoSize photoSize);
 
-    /**
-     * Each photo can be viewed in different sizes (XS, S, M, L, XL)
-     * Images are pre-computed in these sizes to optimize bandwidth when requested.
-     */
-    @Ignore
-    transient protected Map<PhotoSize, Image> images = new ArrayMap<>();
-    @Parent
-    Key parent = ObjectManager.applicationRootKey;
+    void setImage(PhotoSize photoSize, Image image);
 
-    protected PhotoId id = null;
-    protected String ownerId;
-    protected boolean ownerNotifyAboutPraise = false;
-    protected EmailAddress ownerEmailAddress = EmailAddress.EMPTY;
-    protected Language ownerLanguage = Language.ENGLISH;
-    protected int width;
-    protected int height;
-    protected PhotoSize maxPhotoSize = PhotoSize.MEDIUM; // derived
-    protected Tags tags = Tags.EMPTY_TAGS;
-    protected PhotoStatus status = PhotoStatus.VISIBLE;
-    protected int praiseSum = 10;
-    protected int noVotes = 1;
-    protected int noVotesAtLastNotification = 1;
-    protected long creationTime = System.currentTimeMillis();
-    protected Location location;
-    /**
-     * The default type is jpg
-     */
-    protected String ending = "jpg";
-    //TODO: change it to a single long
-    @Id
-    private Long idLong;
+    String getIdAsString();
 
-    public Photo() {
-        id = PhotoId.getNextId();
-        incWriteCount();
-    }
+    PhotoId getId();
 
-    public Photo(PhotoId myId) {
-        id = myId;
+    String getOwnerId();
 
-        incWriteCount();
-    }
+    void setOwnerId(String newName);
 
-    public Image getImage(PhotoSize photoSize) {
-        return images.get(photoSize);
-    }
+    String getSummary(ModelConfig cfg);
 
-    public void setImage(PhotoSize photoSize, Image image) {
-        this.images.put(photoSize, image);
-    }
+    String getCaption(ModelConfig cfg);
 
-    public String getIdAsString() {
-        return id.asString();
-    }
+    boolean getOwnerNotifyAboutPraise();
 
-    public PhotoId getId() {
-        return id;
-    }
+    void setOwnerNotifyAboutPraise(boolean newNotifyAboutPraise);
 
-    public String getOwnerId() {
-        return ownerId;
-    }
+    Language getOwnerLanguage();
 
-    public void setOwnerId(String newName) {
-        ownerId = newName;
-        incWriteCount();
-    }
+    void setOwnerLanguage(Language newLanguage);
 
-    public String getSummary(ModelConfig cfg) {
-        return cfg.asPhotoSummary(ownerId);
-    }
+    boolean hasSameOwner(Photo photo);
 
-    public String getCaption(ModelConfig cfg) {
-        String ownerName = UserManager.getInstance().getUserById(ownerId).getNickName();
-        return cfg.asPhotoCaption(ownerName);
-    }
+    EmailAddress getOwnerEmailAddress();
 
-    public boolean getOwnerNotifyAboutPraise() {
-        return ownerNotifyAboutPraise;
-    }
+    void setOwnerEmailAddress(EmailAddress newEmailAddress);
 
-    public void setOwnerNotifyAboutPraise(boolean newNotifyAboutPraise) {
-        ownerNotifyAboutPraise = newNotifyAboutPraise;
-        incWriteCount();
-    }
+    int getWidth();
 
-    public Language getOwnerLanguage() {
-        return ownerLanguage;
-    }
+    int getHeight();
 
-    public void setOwnerLanguage(Language newLanguage) {
-        ownerLanguage = newLanguage;
-        incWriteCount();
-    }
+    int getThumbWidth();
 
-    public boolean hasSameOwner(Photo photo) {
-        return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
-    }
+    boolean isWiderThanHigher();
 
-    public EmailAddress getOwnerEmailAddress() {
-        return ownerEmailAddress;
-    }
+    int getThumbHeight();
 
-    public void setOwnerEmailAddress(EmailAddress newEmailAddress) {
-        ownerEmailAddress = newEmailAddress;
-        incWriteCount();
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getThumbWidth() {
-        return isWiderThanHigher() ? MAX_THUMB_PHOTO_WIDTH : (width * MAX_THUMB_PHOTO_HEIGHT / height);
-    }
-
-    public boolean isWiderThanHigher() {
-        return (height * MAX_PHOTO_WIDTH) < (width * MAX_PHOTO_HEIGHT);
-    }
-
-    public int getThumbHeight() {
-        return isWiderThanHigher() ? (height * MAX_THUMB_PHOTO_WIDTH / width) : MAX_THUMB_PHOTO_HEIGHT;
-    }
-
-    public void setWidthAndHeight(int newWidth, int newHeight) {
-        width = newWidth;
-        height = newHeight;
-
-        maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
-
-        incWriteCount();
-    }
+    void setWidthAndHeight(int newWidth, int newHeight);
 
     /**
      * Can this photo satisfy provided photo size?
      */
-    public boolean hasPhotoSize(PhotoSize size) {
-        return maxPhotoSize.asInt() >= size.asInt();
-    }
+    boolean hasPhotoSize(PhotoSize size);
 
-    public PhotoSize getMaxPhotoSize() {
-        return maxPhotoSize;
-    }
+    PhotoSize getMaxPhotoSize();
 
-    public String getPraiseAsString(ModelConfig cfg) {
-        return cfg.asPraiseString(getPraise());
-    }
+    String getPraiseAsString(ModelConfig cfg);
 
-    public double getPraise() {
-        return (double) praiseSum / noVotes;
-    }
+    double getPraise();
 
-    public void addToPraise(int value) {
-        praiseSum += value;
-        noVotes += 1;
-        incWriteCount();
-    }
+    void addToPraise(int value);
 
-    public boolean isVisible() {
-        return status.isDisplayable();
-    }
+    boolean isVisible();
 
-    public PhotoStatus getStatus() {
-        return status;
-    }
+    PhotoStatus getStatus();
 
-    public void setStatus(PhotoStatus newStatus) {
-        status = newStatus;
-        incWriteCount();
-    }
+    void setStatus(PhotoStatus newStatus);
 
-    public boolean hasTag(String tag) {
-        return tags.hasTag(tag);
-    }
+    boolean hasTag(String tag);
 
-    public Tags getTags() {
-        return tags;
-    }
+    Tags getTags();
 
-    public void setTags(Tags newTags) {
-        tags = newTags;
-        incWriteCount();
-    }
+    void setTags(Tags newTags);
 
-    public long getCreationTime() {
-        return creationTime;
-    }
+    long getCreationTime();
 
-    public String getEnding() {
-        return ending;
-    }
+    String getEnding();
 
-    public void setEnding(String ending) {
-        this.ending = ending;
-    }
+    void setEnding(String ending);
 
-    public boolean hasNewPraise() {
-        return noVotes > noVotesAtLastNotification;
-    }
+    boolean hasNewPraise();
 
-    public void setNoNewPraise() {
-        noVotesAtLastNotification = noVotes;
-        incWriteCount();
-    }
+    void setNoNewPraise();
 
-    public Location getLocation() {
-        return location;
-    }
+    Location getLocation();
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+    void setLocation(Location location);
 }

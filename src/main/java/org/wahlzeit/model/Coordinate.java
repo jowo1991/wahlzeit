@@ -1,5 +1,9 @@
 package org.wahlzeit.model;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Preconditions;
+
 /**
  * Represents a <u>immutable</u> coordinate with its {@link #latitude} and {@link #longitude}.<br>
  * For example the coordinate (49.575103, 11.030055) represents the
@@ -15,6 +19,9 @@ public class Coordinate {
      * Instantiates an <u>immutable</u> coordinate instance.
      */
     public Coordinate(double latitude, double longitude) {
+        Preconditions.checkArgument(latitude >= -90 && latitude <= 90);
+        Preconditions.checkArgument(longitude >= -180 && longitude <= 180);
+
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -42,6 +49,29 @@ public class Coordinate {
     }
 
     /**
+     * Parses the given "coordinate" which must be in the format "latitude,longitude".
+     * @param coordinate String to parse, e.g. "49.575103, 11.030055".
+     * @return a {@link Coordinate} instance or "null" if the given String was not a valid coordinate.
+     */
+    public static Coordinate tryParse(String coordinate) {
+        if (Strings.isNullOrEmpty(coordinate))
+            return null;
+
+        String[] split = coordinate.split(",");
+        if (split.length == 2) {
+            try {
+                double lat = Double.parseDouble(split[0]);
+                double log = Double.parseDouble(split[1]);
+
+                return new Coordinate(lat, log);
+            } catch (Exception ex) {
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Calculates the distance between this {@link Coordinate} and the given {@link Coordinate}.
      * For details see: {@link #getDistance(Coordinate, Coordinate)}
      *
@@ -66,5 +96,13 @@ public class Coordinate {
      */
     public double getLongitude() {
         return longitude;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("latitude", latitude)
+                .add("longitude", longitude)
+                .toString();
     }
 }

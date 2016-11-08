@@ -20,6 +20,7 @@
 
 package org.wahlzeit.utils;
 
+import org.wahlzeit.model.LandscapePhoto;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoFilter;
 import org.wahlzeit.model.PhotoId;
@@ -79,14 +80,14 @@ public class PhotoFactory {
 	 * @methodtype factory
 	 */
 	public Photo createPhoto() {
-		return new Photo();
+		return new LandscapePhoto();
 	}
 
 	/**
 	 * Creates a new photo with the specified id
 	 */
 	public Photo createPhoto(PhotoId id) {
-		return new Photo(id);
+		return new LandscapePhoto(id);
 	}
 
 	/**
