@@ -17,6 +17,12 @@ public class Coordinate {
 
     /**
      * Instantiates an <u>immutable</u> coordinate instance.
+     *
+     * @throws IllegalArgumentException thrown if the given parameters are not in the allowed range:
+     * <ul>
+     *     <li>-90 <= latitude <= 90</li>
+     *     <li>-180 <= longitude <= 180</li>
+     * </ul>
      */
     public Coordinate(double latitude, double longitude) {
         Preconditions.checkArgument(latitude >= -90 && latitude <= 90);
