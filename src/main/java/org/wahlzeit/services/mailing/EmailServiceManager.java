@@ -46,11 +46,15 @@ public class EmailServiceManager {
     public static EmailService getDefaultService() {
         // The lock (or synchronized) mechanism is necessary to ensure thread safety!
         instanceLock.lock();
-        if (instance == null) {
-            boolean isInProduction = ServiceMain.getInstance().isInProduction();
-            instance = new EmailServiceManager(isInProduction);
+        try {
+            if (instance == null) {
+                boolean isInProduction = ServiceMain.getInstance().isInProduction();
+                instance = new EmailServiceManager(isInProduction);
+            }
         }
-        instanceLock.unlock();
+        finally {
+            instanceLock.unlock();
+        }
 
         return instance.defaultService;
     }
@@ -59,10 +63,15 @@ public class EmailServiceManager {
         // The lock (or synchronized) mechanism is necessary to ensure thread safety!
         //(Strictly speaking that wouldn't be necessary for the MockEmailService because it's not expensive to create)
         testingInstanceLock.lock();
-        if(testingInstance == null) {
-            testingInstance = new EmailServiceManager(false);
+
+        try {
+            if(testingInstance == null) {
+                testingInstance = new EmailServiceManager(false);
+            }
         }
-        testingInstanceLock.unlock();
+        finally {
+            testingInstanceLock.unlock();
+        }
 
         return testingInstance.defaultService;
     }
