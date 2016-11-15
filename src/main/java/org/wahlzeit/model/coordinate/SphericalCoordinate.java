@@ -1,15 +1,15 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinate;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
 /**
- * Represents a <u>immutable</u> coordinate with its {@link #latitude} and {@link #longitude}.<br>
+ * Represents an <u>immutable</u> coordinate with its {@link #latitude} and {@link #longitude}.<br>
  * For example the coordinate (49.575103, 11.030055) represents the
  * <a href="https://osm.rrze.fau.de/map-ll-osm?mlat=49.575103&mlon=11.030055&zoom=17">Mensa in Erlangen</a>.
  */
-public class Coordinate {
+public class SphericalCoordinate implements Coordinate {
     public static final double EARTH_RADIUS_IN_METERS = 6371000.00;
 
     private final double latitude;
@@ -24,7 +24,7 @@ public class Coordinate {
      *     <li>-180 <= longitude <= 180</li>
      * </ul>
      */
-    public Coordinate(double latitude, double longitude) {
+    public SphericalCoordinate(double latitude, double longitude) {
         Preconditions.checkArgument(latitude >= -90 && latitude <= 90);
         Preconditions.checkArgument(longitude >= -180 && longitude <= 180);
 
@@ -40,7 +40,7 @@ public class Coordinate {
      * @param b Coordinate B
      * @return Distance in meters
      */
-    public static double getDistance(Coordinate a, Coordinate b) {
+    public static double getDistance(SphericalCoordinate a, SphericalCoordinate b) {
         double latARad = Math.toRadians(a.getLatitude());
         double latBRad = Math.toRadians(b.getLatitude());
 
@@ -57,9 +57,9 @@ public class Coordinate {
     /**
      * Parses the given "coordinate" which must be in the format "latitude,longitude".
      * @param coordinate String to parse, e.g. "49.575103, 11.030055".
-     * @return a {@link Coordinate} instance or "null" if the given String was not a valid coordinate.
+     * @return a {@link SphericalCoordinate} instance or "null" if the given String was not a valid coordinate.
      */
-    public static Coordinate tryParse(String coordinate) {
+    public static SphericalCoordinate tryParse(String coordinate) {
         if (Strings.isNullOrEmpty(coordinate))
             return null;
 
@@ -69,7 +69,7 @@ public class Coordinate {
                 double lat = Double.parseDouble(split[0]);
                 double log = Double.parseDouble(split[1]);
 
-                return new Coordinate(lat, log);
+                return new SphericalCoordinate(lat, log);
             } catch (Exception ex) {
             }
         }
@@ -77,15 +77,14 @@ public class Coordinate {
         return null;
     }
 
-    /**
-     * Calculates the distance between this {@link Coordinate} and the given {@link Coordinate}.
-     * For details see: {@link #getDistance(Coordinate, Coordinate)}
-     *
-     * @param other the other Coordinate
-     * @return Distance in meters
-     */
-    public double getDistance(Coordinate other) {
-        return getDistance(this, other);
+    @Override
+    public double getDistance(Coordinate other) throws IllegalArgumentException {
+        if(other instanceof SphericalCoordinate) {
+            return getDistance(this, (SphericalCoordinate) other);
+        }
+        else {
+            throw new IllegalArgumentException("Given coordinate of type " + other.getClass().getCanonicalName() + " not supported");
+        }
     }
 
     /**

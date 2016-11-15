@@ -1,17 +1,19 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinate;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.wahlzeit.model.coordinate.Coordinate;
 
-public class CoordinateTest {
+public class SphericalCoordinateTest {
     /**
      * 0.031-113 - Seminarraum
      */
-    final Coordinate room = new Coordinate(49.573817, 11.027639);
+    final SphericalCoordinate room = new SphericalCoordinate(49.573817, 11.027639);
     /**
      * Mensa-Süd
      */
-    final Coordinate mensa = new Coordinate(49.575103, 11.030055);
+    final SphericalCoordinate mensa = new SphericalCoordinate(49.575103, 11.030055);
 
     @Test
     public void testDistanceBetweenSameCoordinatesIsZero() {
@@ -30,22 +32,22 @@ public class CoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorInvalidLatitudeThrowsException() {
-        new Coordinate(94, 20);
+        new SphericalCoordinate(94, 20);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorInvalidLongitudeThrowsException() {
-        new Coordinate(45, 190);
+        new SphericalCoordinate(45, 190);
     }
 
     @Test
     public void testConstructorValidArgumentsNoException() {
-        new Coordinate(45, 45);
+        new SphericalCoordinate(45, 45);
     }
 
     @Test
     public void testTryParseValidArgumentReturnsCoordinate() {
-        Coordinate coordinate = Coordinate.tryParse("44, 55");
+        SphericalCoordinate coordinate = SphericalCoordinate.tryParse("44, 55");
 
         Assert.assertEquals(44, coordinate.getLatitude(), 0);
         Assert.assertEquals(55, coordinate.getLongitude(), 0);
@@ -53,13 +55,19 @@ public class CoordinateTest {
 
     @Test
     public void testTryParseInvalidArgumentReturnsNull() {
-        Coordinate coordinate = Coordinate.tryParse("44");
+        SphericalCoordinate coordinate = SphericalCoordinate.tryParse("44");
         Assert.assertNull(coordinate);
     }
 
     @Test
     public void testTryParseNullArgumentReturnsNull() {
-        Coordinate coordinate = Coordinate.tryParse(null);
+        SphericalCoordinate coordinate = SphericalCoordinate.tryParse(null);
         Assert.assertNull(coordinate);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDistanceToOtherCoordinateThrowsException() {
+        Coordinate other = Mockito.mock(Coordinate.class);
+        room.getDistance(other);
     }
 }

@@ -22,10 +22,10 @@ package org.wahlzeit.handlers;
 
 import com.google.appengine.api.images.Image;
 import org.wahlzeit.agents.AsyncTaskExecutor;
-import org.wahlzeit.model.Coordinate;
 import org.wahlzeit.model.Location;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.Tags;
+import org.wahlzeit.model.coordinate.SphericalCoordinate;
 import org.wahlzeit.model.enums.AccessRights;
 import org.wahlzeit.model.users.User;
 import org.wahlzeit.model.users.UserSession;
@@ -84,7 +84,7 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
             user.addPhoto(photo);
 
             String coordinateString = us.getAsString(args, "coordinate");
-            Coordinate coordinate = Coordinate.tryParse(coordinateString);
+            SphericalCoordinate coordinate = SphericalCoordinate.tryParse(coordinateString);
             if (coordinate != null) {
                 photo.setLocation(new Location(coordinate));
             }

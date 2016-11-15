@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.SphericalCoordinate;
 
 public class LocationTest {
     @Test(expected = NullPointerException.class)
@@ -11,6 +13,6 @@ public class LocationTest {
 
     @Test
     public void testValidCreationWorks() {
-        Location location = new Location(new Coordinate(10, 20));
+        Location location = new Location(new SphericalCoordinate(10, 20));
     }
 }

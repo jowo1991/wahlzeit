@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
+import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.SphericalCoordinate;
 
 /**
  * Represents an <u>immutable</u> location with a {@link #coordinate}.
@@ -15,6 +17,13 @@ public class Location {
     public Location(Coordinate coordinate) {
         Preconditions.checkNotNull(coordinate);
         this.coordinate = coordinate;
+    }
+
+    /**
+     * Required by GAE
+     */
+    private Location() {
+        coordinate = null;
     }
 
     @Override
