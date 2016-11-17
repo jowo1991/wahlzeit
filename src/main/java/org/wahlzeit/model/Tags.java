@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import com.google.common.base.MoreObjects;
 import org.wahlzeit.utils.StringUtil;
 
 import java.io.Serializable;
@@ -217,4 +218,10 @@ public class Tags implements Serializable {
 		return result.toString();
 	}
 
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("tags", tags)
+				.toString();
+	}
 }

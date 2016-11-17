@@ -169,7 +169,7 @@ public class PhotoManager extends ObjectManager {
 		for (LandscapePhoto photo : existingPhotos) {
 			if (!doHasPhoto(photo.getId())) {
 				log.config(LogBuilder.createSystemMessage().
-						addParameter("Load Photo with ID", photo.getIdAsString()).toString());
+						addParameter("Load Photo: ", photo).toString());
 				loadScaledImages(photo);
 				doAddPhoto(photo);
 			} else {
@@ -226,6 +226,7 @@ public class PhotoManager extends ObjectManager {
 	 *
 	 */
 	public void savePhoto(Photo photo) {
+		log.info("SavePhoto: " + photo);
 		updateObject(photo);
 	}
 

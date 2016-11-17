@@ -3,6 +3,7 @@ package org.wahlzeit.model;
 import com.google.api.client.util.ArrayMap;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.images.Image;
+import com.google.common.base.MoreObjects;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
@@ -268,5 +269,20 @@ public class LandscapePhoto extends DataObject implements Photo {
     @Override
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("ownerId", ownerId)
+                .add("width", width)
+                .add("height", height)
+                .add("tags", tags)
+                .add("status", status)
+                .add("creationTime", creationTime)
+                .add("location", location)
+                .add("idLong", idLong)
+                .toString();
     }
 }

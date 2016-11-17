@@ -20,6 +20,7 @@
 
 package org.wahlzeit.services.config;
 
+import com.google.common.base.MoreObjects;
 import org.wahlzeit.services.LogBuilder;
 
 import java.io.File;
@@ -125,7 +126,7 @@ public class SysConfig extends AbstractConfig {
 	 */
 	public static synchronized void assertIsUninitialized() {
 		if (instance != null) {
-			throw new IllegalStateException("attempt to initalize SysConfig again");
+			throw new IllegalStateException("attempt to initalize SysConfig again: " + instance.toString());
 		}
 	}
 
@@ -171,4 +172,16 @@ public class SysConfig extends AbstractConfig {
 		return getInstance().tempDir;
 	}
 
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("rootDir", rootDir)
+				.add("scriptsDir", scriptsDir)
+				.add("staticDir", staticDir)
+				.add("templatesDir", templatesDir)
+				.add("photosDir", photosDir)
+				.add("backupDir", backupDir)
+				.add("tempDir", tempDir)
+				.toString();
+	}
 }
