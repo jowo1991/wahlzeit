@@ -1,12 +1,13 @@
 package org.wahlzeit.model.coordinate;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 /**
- * Represents an <u>immutable</u> Coordinate (X, Y, Z).<br>
- * For details see: <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian Coordinate at wikipedia</a>
+ * Represents an <u>immutable</u> Coordinate (X, Y, Z).<br> For details see: <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian
+ * Coordinate at wikipedia</a>
  */
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
     private final double x;
     private final double y;
     private final double z;
@@ -17,25 +18,9 @@ public class CartesianCoordinate implements Coordinate {
         this.z = z;
     }
 
-    /**
-     * Calculates the distance between the given coordinates in meters.
-     * For details see <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Distance_between_two_points">wikipedia</a>.
-     * @param a Coordinate A
-     * @param b Coordinate B
-     * @return Distance in meters
-     */
-    public static double getDistance(CartesianCoordinate a, CartesianCoordinate b) {
-        return Math.sqrt( (b.x - a.x) + (b.y - a.y) + (b.z - a.z));
-    }
-
     @Override
-    public double getDistance(Coordinate other) throws IllegalArgumentException {
-        if(other instanceof CartesianCoordinate) {
-            return getDistance(this, (CartesianCoordinate) other);
-        }
-        else {
-            throw new IllegalArgumentException("Given coordinate of type " + other.getClass().getCanonicalName() + " not supported");
-        }
+    public CartesianCoordinate asCartesian() {
+        return this;
     }
 
     public double getX() {
@@ -48,6 +33,21 @@ public class CartesianCoordinate implements Coordinate {
 
     public double getZ() {
         return z;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartesianCoordinate that = (CartesianCoordinate) o;
+
+        return x == that.x && y == that.y && z == that.z;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(x, y, z);
     }
 
     @Override

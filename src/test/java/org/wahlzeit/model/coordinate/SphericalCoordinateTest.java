@@ -2,8 +2,6 @@ package org.wahlzeit.model.coordinate;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.wahlzeit.model.coordinate.Coordinate;
 
 public class SphericalCoordinateTest {
     /**
@@ -65,9 +63,36 @@ public class SphericalCoordinateTest {
         Assert.assertNull(coordinate);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testDistanceToOtherCoordinateThrowsException() {
-        Coordinate other = Mockito.mock(Coordinate.class);
-        room.getDistance(other);
+    @Test
+    public void testDistanceToCartesianCoordinate() {
+        CartesianCoordinate coordinate = new CartesianCoordinate(500, 200, 678);
+        double distance = room.getDistance(coordinate);
+
+        Assert.assertEquals(6370140.8, distance, 0.1);
+    }
+
+    @Test
+    public void testRoomAndMensaCoordinatesAreNotEqual() {
+        Assert.assertFalse(room.isEqual(mensa));
+        Assert.assertFalse(mensa.isEqual(room));
+    }
+
+    @Test
+    public void testCoordinatesWithSameAttributesOrSameInstanceAreEqual() {
+        SphericalCoordinate a = new SphericalCoordinate(33, 44);
+        SphericalCoordinate b = new SphericalCoordinate(33, 44);
+
+        Assert.assertTrue(a.isEqual(b));
+        Assert.assertTrue(b.isEqual(a));
+
+        Assert.assertTrue(a.isEqual(a));
+        Assert.assertTrue(b.isEqual(b));
+    }
+
+    @Test
+    public void testSphericalAsCartesianEqualsCartesianCoordinate() {
+        CartesianCoordinate cartesian = mensa.asCartesian();
+
+        Assert.assertTrue(cartesian.isEqual(mensa));
     }
 }

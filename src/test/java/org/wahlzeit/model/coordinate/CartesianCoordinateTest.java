@@ -2,11 +2,10 @@ package org.wahlzeit.model.coordinate;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public class CartesianCoordinateTest {
     final CartesianCoordinate coordA = new CartesianCoordinate(10, 20, 30);
-    final CartesianCoordinate coordB = new CartesianCoordinate(20, 30, 110);
+    final CartesianCoordinate coordB = new CartesianCoordinate(15, 80, 110);
 
     @Test
     public void testConstructor() {
@@ -28,12 +27,32 @@ public class CartesianCoordinateTest {
     public void testDistanceCalculation() {
         double distance = coordA.getDistance(coordB);
 
-        Assert.assertEquals(10, distance, 0);
+        Assert.assertEquals(100.12, distance, 0.1);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testDistanceToOtherCoordinateThrowsException() {
-        Coordinate other = Mockito.mock(Coordinate.class);
-        coordA.getDistance(other);
+    @Test
+    public void testDistanceToSphericalCoordinate() {
+        CartesianCoordinate cartesian = new CartesianCoordinate(200, 300, 200);
+        SphericalCoordinate other = new SphericalCoordinate(0, 90, 40);
+        double distance = cartesian.getDistance(other);
+
+        Assert.assertEquals(384.18, distance, 0.1);
+    }
+
+    @Test
+    public void testTestCoordinatesAreNotEqual() {
+        Assert.assertFalse(coordA.isEqual(coordB));
+    }
+
+    @Test
+    public void testCoordinatesWithSameAttributesOrSameInstanceAreEqual() {
+        CartesianCoordinate a = new CartesianCoordinate(10, 20, 30);
+        CartesianCoordinate b = new CartesianCoordinate(10, 20, 30);
+
+        Assert.assertTrue(a.isEqual(b));
+        Assert.assertTrue(b.isEqual(a));
+
+        Assert.assertTrue(a.isEqual(a));
+        Assert.assertTrue(b.isEqual(b));
     }
 }
