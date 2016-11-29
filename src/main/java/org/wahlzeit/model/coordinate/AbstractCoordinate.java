@@ -1,5 +1,7 @@
 package org.wahlzeit.model.coordinate;
 
+import com.google.common.base.Preconditions;
+
 public abstract class AbstractCoordinate implements Coordinate {
     /**
      * Calculates the distance between the given coordinates in meters.
@@ -14,6 +16,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getDistance(Coordinate other) throws IllegalArgumentException {
+        Preconditions.checkNotNull(other, "other Coordinate may not be null");
+
         CartesianCoordinate otherAsCartesian = other.asCartesian();
         CartesianCoordinate thisAsCartesian = this.asCartesian();
 

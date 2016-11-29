@@ -67,28 +67,6 @@ public class SphericalCoordinate extends AbstractCoordinate {
     }
 
     /**
-     * Calculate the distance between two coordinates using the <a href="https://en.wikipedia.org/wiki/Great-circle_distance">Great
-     * Circle Distance</a>.
-     *
-     * @param a Coordinate A
-     * @param b Coordinate B
-     * @return Distance in meters
-     */
-    private double getDistance(SphericalCoordinate a, SphericalCoordinate b) {
-        double latARad = Math.toRadians(a.getLatitude());
-        double latBRad = Math.toRadians(b.getLatitude());
-
-        double deltaLambdaRad = Math.toRadians(a.getLongitude() - b.getLongitude());
-
-        double productLatitudes = Math.sin(latARad) * Math.sin(latBRad);
-        double product2 = Math.cos(latARad) * Math.cos(latBRad) * Math.cos(deltaLambdaRad);
-
-        double deltaSigma = Math.acos(productLatitudes + product2);
-
-        return EARTH_RADIUS_IN_METERS * deltaSigma;
-    }
-
-    /**
      * Converts the {@link SphericalCoordinate} to a {@link CartesianCoordinate}.
      *
      * @return Converted coordinate
@@ -105,24 +83,6 @@ public class SphericalCoordinate extends AbstractCoordinate {
         return new CartesianCoordinate(X, Y, Z);
     }
 
-    @Override
-    public double getDistance(Coordinate other) throws IllegalArgumentException {
-        if (other instanceof SphericalCoordinate) {
-            return getDistance(this, (SphericalCoordinate) other);
-        } else {
-            return super.getDistance(other);
-        }
-    }
-
-    @Override
-    public boolean isEqual(Coordinate other) {
-        if (other instanceof SphericalCoordinate) {
-            return this.equals(other);
-        } else {
-            return super.isEqual(other);
-        }
-    }
-
     /**
      * Gets the Latitude.
      * (abbreviation: Lat., φ, or phi)
@@ -137,20 +97,6 @@ public class SphericalCoordinate extends AbstractCoordinate {
      */
     public double getLongitude() {
         return longitude;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SphericalCoordinate that = (SphericalCoordinate) o;
-
-        return latitude == that.latitude && longitude == that.longitude && radius == that.radius;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(latitude, longitude, radius);
     }
 
     @Override
