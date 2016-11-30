@@ -2,8 +2,6 @@ package org.wahlzeit.model.coordinate;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
 
 /**
  * Represents an <u>immutable</u> coordinate with its {@link #latitude} and {@link #longitude}.<br>
@@ -13,15 +11,15 @@ import com.google.common.base.Preconditions;
 public class SphericalCoordinate extends AbstractCoordinate {
     public static final double EARTH_RADIUS_IN_METERS = 6371000.00;
 
-    private final double latitude;
-    private final double longitude;
-    private final double radius;
+    private double latitude;
+    private double longitude;
+    private double radius;
 
     /**
      * Instantiates an <u>immutable</u> coordinate instance using the {@link #EARTH_RADIUS_IN_METERS}.
      *
-     * @throws IllegalArgumentException thrown if the given parameters are not in the allowed range: <ul> <li>-90 <=
-     *                                  latitude <= 90</li> <li>-180 <= longitude <= 180</li> </ul>
+     * @throws AssertionError thrown if the given parameters are not in the allowed range: <ul> <li>-90 <= latitude <=
+     *                        90</li> <li>-180 <= longitude <= 180</li></ul>
      */
     public SphericalCoordinate(double latitude, double longitude) {
         this(latitude, longitude, EARTH_RADIUS_IN_METERS);
@@ -30,16 +28,19 @@ public class SphericalCoordinate extends AbstractCoordinate {
     /**
      * Instantiates an <u>immutable</u> coordinate instance.
      *
-     * @throws IllegalArgumentException thrown if the given parameters are not in the allowed range: <ul> <li>-90 <=
-     *                                  latitude <= 90</li> <li>-180 <= longitude <= 180</li> </ul>
+     * @throws AssertionError thrown if the given parameters are not in the allowed range: <ul> <li>-90 <= latitude <=
+     *                        90</li> <li>-180 <= longitude <= 180</li><li>radius > 0</li></ul>
      */
     public SphericalCoordinate(double latitude, double longitude, double radius) {
-        Preconditions.checkArgument(latitude >= -90 && latitude <= 90);
-        Preconditions.checkArgument(longitude >= -180 && longitude <= 180);
+        assertLatitude(latitude);
+        assertLongitude(longitude);
+        assertRadius(radius);
 
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+
+        assertClassInvariant();
     }
 
     /**
@@ -60,10 +61,29 @@ public class SphericalCoordinate extends AbstractCoordinate {
 
                 return new SphericalCoordinate(lat, log);
             } catch (Exception ex) {
+                //purposefully ignored
             }
         }
 
         return null;
+    }
+
+    private void assertClassInvariant() {
+        assertLatitude(latitude);
+        assertLongitude(longitude);
+        assertRadius(radius);
+    }
+
+    private void assertLatitude(double latitude) {
+        assert latitude >= -90 && latitude <= 90 : "Latitude must be in the range -90 <= latitude <= 90";
+    }
+
+    private void assertLongitude(double longitude) {
+        assert longitude >= -180 && longitude <= 180 : "Longitude must be in the range -180 <= longitude <= 180";
+    }
+
+    private void assertRadius(double radius) {
+        assert radius > 0 : "Radius must be greater than 0";
     }
 
     /**
@@ -91,6 +111,13 @@ public class SphericalCoordinate extends AbstractCoordinate {
         return latitude;
     }
 
+    public void setLatitude(double latitude) {
+        assertLatitude(latitude);
+        this.latitude = latitude;
+
+        assertClassInvariant();
+    }
+
     /**
      * Gets the Longitude.
      * (abbreviation: Long., λ, or lambda)
@@ -99,11 +126,33 @@ public class SphericalCoordinate extends AbstractCoordinate {
         return longitude;
     }
 
+    public void setLongitude(double longitude) {
+        assertLongitude(longitude);
+        this.longitude = longitude;
+
+        assertClassInvariant();
+    }
+
+    /**
+     * Gets the radius
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        assertRadius(radius);
+        this.radius = radius;
+
+        assertClassInvariant();
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("latitude", latitude)
                 .add("longitude", longitude)
+                .add("radius", radius)
                 .toString();
     }
 }

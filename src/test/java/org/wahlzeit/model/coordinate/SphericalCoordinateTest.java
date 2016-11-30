@@ -1,41 +1,83 @@
 package org.wahlzeit.model.coordinate;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SphericalCoordinateTest {
+    final double TOLERANCE = 0.1;
+    final double invalidLatitude = 94;
+    final double invalidLongitude = 200;
+    final double invalidRadius = -10;
     /**
      * 0.031-113 - Seminarraum
      */
-    final SphericalCoordinate room = new SphericalCoordinate(49.573817, 11.027639);
+    SphericalCoordinate room;
     /**
      * Mensa-Süd
      */
-    final SphericalCoordinate mensa = new SphericalCoordinate(49.575103, 11.030055);
+    SphericalCoordinate mensa;
+
+    @Before
+    public void setup() {
+        room = new SphericalCoordinate(49.573817, 11.027639);
+        mensa = new SphericalCoordinate(49.575103, 11.030055);
+    }
 
     @Test
     public void testDistanceBetweenSameCoordinatesIsZero() {
-        Assert.assertEquals(0, room.getDistance(room), 0.1);
+        Assert.assertEquals(0, room.getDistance(room), TOLERANCE);
     }
 
     @Test
     public void testDistanceBetweenRoomAndMensa() {
-        Assert.assertEquals(225.3, room.getDistance(mensa), 0.1);
+        Assert.assertEquals(225.3, room.getDistance(mensa), TOLERANCE);
     }
 
     @Test
     public void testDistanceBetweenMensaAndRoom() {
-        Assert.assertEquals(225.3, mensa.getDistance(room), 0.1);
+        Assert.assertEquals(225.3, mensa.getDistance(room), TOLERANCE);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorInvalidLatitudeThrowsException() {
-        new SphericalCoordinate(94, 20);
+        new SphericalCoordinate(invalidLatitude, 20);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AssertionError.class)
     public void testConstructorInvalidLongitudeThrowsException() {
-        new SphericalCoordinate(45, 190);
+        new SphericalCoordinate(45, invalidLongitude);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testConstructorInvalidRadiusThrowsException() {
+        new SphericalCoordinate(44, 43, invalidRadius);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testSetLatitudeWithInvalidArgumentThrowsException() {
+        room.setLatitude(invalidLatitude);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testSetLongitudeWithInvalidArgumentThrowsException() {
+        room.setLongitude(invalidLongitude);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testSetRadiusWithInvalidArgumentThrowsException() {
+        room.setRadius(invalidRadius);
+    }
+
+    @Test
+    public void testSettersWithValidInputChangesCoordinate() {
+        room.setLatitude(20);
+        room.setLongitude(30);
+        room.setRadius(300000);
+
+        Assert.assertEquals(20, room.getLatitude(), TOLERANCE);
+        Assert.assertEquals(30, room.getLongitude(), TOLERANCE);
+        Assert.assertEquals(300000, room.getRadius(), TOLERANCE);
     }
 
     @Test
@@ -68,7 +110,7 @@ public class SphericalCoordinateTest {
         CartesianCoordinate coordinate = new CartesianCoordinate(500, 200, 678);
         double distance = room.getDistance(coordinate);
 
-        Assert.assertEquals(6370140.8, distance, 0.1);
+        Assert.assertEquals(6370140.8, distance, TOLERANCE);
     }
 
     @Test
