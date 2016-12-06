@@ -25,17 +25,17 @@ public class SphericalCoordinateTest {
     }
 
     @Test
-    public void testDistanceBetweenSameCoordinatesIsZero() {
+    public void testDistanceBetweenSameCoordinatesIsZero() throws Exception {
         Assert.assertEquals(0, room.getDistance(room), TOLERANCE);
     }
 
     @Test
-    public void testDistanceBetweenRoomAndMensa() {
+    public void testDistanceBetweenRoomAndMensa() throws Exception {
         Assert.assertEquals(225.3, room.getDistance(mensa), TOLERANCE);
     }
 
     @Test
-    public void testDistanceBetweenMensaAndRoom() {
+    public void testDistanceBetweenMensaAndRoom() throws Exception {
         Assert.assertEquals(225.3, mensa.getDistance(room), TOLERANCE);
     }
 
@@ -106,7 +106,7 @@ public class SphericalCoordinateTest {
     }
 
     @Test
-    public void testDistanceToCartesianCoordinate() {
+    public void testDistanceToCartesianCoordinate() throws Exception {
         CartesianCoordinate coordinate = new CartesianCoordinate(500, 200, 678);
         double distance = room.getDistance(coordinate);
 

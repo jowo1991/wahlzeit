@@ -15,7 +15,7 @@ public class CartesianCoordinateTest {
     }
 
     @Test
-    public void testDistanceBetweenSameCoordinatesIsZero() {
+    public void testDistanceBetweenSameCoordinatesIsZero() throws Exception {
         double distanceA = coordA.getDistance(coordA);
         double distanceB = coordB.getDistance(coordB);
 
@@ -24,14 +24,14 @@ public class CartesianCoordinateTest {
     }
 
     @Test
-    public void testDistanceCalculation() {
+    public void testDistanceCalculation() throws Exception {
         double distance = coordA.getDistance(coordB);
 
         Assert.assertEquals(100.12, distance, 0.1);
     }
 
     @Test
-    public void testDistanceToSphericalCoordinate() {
+    public void testDistanceToSphericalCoordinate() throws Exception {
         CartesianCoordinate cartesian = new CartesianCoordinate(200, 300, 200);
         SphericalCoordinate other = new SphericalCoordinate(0, 90, 40);
         double distance = cartesian.getDistance(other);
