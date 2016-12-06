@@ -38,12 +38,8 @@ public class DatastoreAdapterTest extends AbstractAdapterTest {
 	}
 
 
-	@Test(expected = ArrayIndexOutOfBoundsException.class)
-	public void testUpperSizeLimit() {
-		try {
-			imageStorage.writeImage(tooLargeTestImage, "blub", 1);
-		} catch (IOException e) {
-			fail("IOException should not be thrown!");
-		}
+	@Test(expected = EntitySizeLimitExceededException.class)
+	public void testUpperSizeLimit() throws EntitySizeLimitExceededException {
+		imageStorage.writeImage(tooLargeTestImage, "blub", 1);
 	}
 }

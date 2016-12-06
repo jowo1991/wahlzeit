@@ -3,13 +3,12 @@ package org.wahlzeit.services;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-import org.wahlzeit.model.*;
-import org.wahlzeit.model.users.Administrator;
-import org.wahlzeit.model.users.Client;
-import org.wahlzeit.model.users.Guest;
-import org.wahlzeit.model.users.Moderator;
-import org.wahlzeit.model.users.User;
-import org.wahlzeit.model.persistence.DatastoreAdapter.ImageWrapper;
+import org.wahlzeit.model.Globals;
+import org.wahlzeit.model.LandscapePhoto;
+import org.wahlzeit.model.PhotoCase;
+import org.wahlzeit.model.Tag;
+import org.wahlzeit.model.persistence.ImageWrapper;
+import org.wahlzeit.model.users.*;
 
 /**
  * A badly named class, to be renamed to ObjectifyService first, something better later.

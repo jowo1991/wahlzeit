@@ -51,7 +51,7 @@ public abstract class ImageStorage {
 	 * @methodproperty wrapper
 	 */
 	public void writeImage(Serializable image, String photoIdAsString, int size)
-			throws InvalidParameterException, IOException {
+			throws EntitySizeLimitExceededException {
 
 		assertImageNotNull(image);
 		assertValidPhotoId(photoIdAsString);
@@ -73,7 +73,7 @@ public abstract class ImageStorage {
 	 * @methodproperty hook
 	 */
 	protected abstract void doWriteImage(Serializable image, String photoIdAsString, int size)
-			throws IOException, InvalidParameterException;
+			throws EntitySizeLimitExceededException;
 
 
 	// read methods ----------------------------------------------------------------------------------------------------
