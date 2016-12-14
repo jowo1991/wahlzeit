@@ -3,7 +3,7 @@ package org.wahlzeit.model.coordinate;
 /**
  * Thrown to indicate that the Coordinate conversion is not supported.
  */
-public class CoordinateConversionNotSupportedException extends Exception {
+public class CoordinateConversionNotSupportedException extends RuntimeException {
     private static final long serialVersionUID = -7392792784934419040L;
 
     public CoordinateConversionNotSupportedException() { }

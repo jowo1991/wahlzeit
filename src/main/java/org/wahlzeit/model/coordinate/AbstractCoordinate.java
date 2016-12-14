@@ -31,6 +31,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public boolean isEqual(Coordinate other) {
+        Preconditions.checkNotNull(other, "other Coordinate may not be null");
+
         try {
             CartesianCoordinate otherAsCartesian = other.asCartesian();
             CartesianCoordinate thisAsCartesian = this.asCartesian();

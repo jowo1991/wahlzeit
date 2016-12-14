@@ -12,10 +12,27 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private final double y;
     private final double z;
 
-    public CartesianCoordinate(double x, double y, double z) {
+    /**
+     * Creates a new coordinate.
+     * @param x
+     * @param y
+     * @param z
+     * @throws IllegalArgumentException If any of the given values is {@link Double#isNaN(double)} or {@link Double#isInfinite(double)}.
+     */
+    public CartesianCoordinate(double x, double y, double z) throws IllegalArgumentException {
+        isValidDouble(x);
+        isValidDouble(y);
+        isValidDouble(z);
+
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    private void isValidDouble(double value) {
+        if(Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException("Invalid value '" + value + "'");
+        }
     }
 
     @Override
