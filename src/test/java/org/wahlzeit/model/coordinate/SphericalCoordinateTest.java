@@ -54,32 +54,6 @@ public class SphericalCoordinateTest {
         new SphericalCoordinate(44, 43, invalidRadius);
     }
 
-    @Test(expected = AssertionError.class)
-    public void testSetLatitudeWithInvalidArgumentThrowsException() {
-        room.setLatitude(invalidLatitude);
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testSetLongitudeWithInvalidArgumentThrowsException() {
-        room.setLongitude(invalidLongitude);
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testSetRadiusWithInvalidArgumentThrowsException() {
-        room.setRadius(invalidRadius);
-    }
-
-    @Test
-    public void testSettersWithValidInputChangesCoordinate() {
-        room.setLatitude(20);
-        room.setLongitude(30);
-        room.setRadius(300000);
-
-        Assert.assertEquals(20, room.getLatitude(), TOLERANCE);
-        Assert.assertEquals(30, room.getLongitude(), TOLERANCE);
-        Assert.assertEquals(300000, room.getRadius(), TOLERANCE);
-    }
-
     @Test
     public void testConstructorValidArgumentsNoException() {
         new SphericalCoordinate(45, 45);
