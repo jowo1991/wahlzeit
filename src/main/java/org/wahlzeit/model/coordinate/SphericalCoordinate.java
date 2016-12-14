@@ -11,9 +11,9 @@ import com.google.common.base.MoreObjects;
 public class SphericalCoordinate extends AbstractCoordinate {
     public static final double EARTH_RADIUS_IN_METERS = 6371000.00;
 
-    private double latitude;
-    private double longitude;
-    private double radius;
+    private final double latitude;
+    private final double longitude;
+    private final double radius;
 
     /**
      * Instantiates an <u>immutable</u> coordinate instance using the {@link #EARTH_RADIUS_IN_METERS}.
@@ -21,7 +21,7 @@ public class SphericalCoordinate extends AbstractCoordinate {
      * @throws AssertionError thrown if the given parameters are not in the allowed range: <ul> <li>-90 <= latitude <=
      *                        90</li> <li>-180 <= longitude <= 180</li></ul>
      */
-    public SphericalCoordinate(double latitude, double longitude) {
+    public SphericalCoordinate(double latitude, double longitude) throws AssertionError {
         this(latitude, longitude, EARTH_RADIUS_IN_METERS);
     }
 
@@ -31,7 +31,7 @@ public class SphericalCoordinate extends AbstractCoordinate {
      * @throws AssertionError thrown if the given parameters are not in the allowed range: <ul> <li>-90 <= latitude <=
      *                        90</li> <li>-180 <= longitude <= 180</li><li>radius > 0</li></ul>
      */
-    public SphericalCoordinate(double latitude, double longitude, double radius) {
+    public SphericalCoordinate(double latitude, double longitude, double radius) throws AssertionError {
         assertLatitude(latitude);
         assertLongitude(longitude);
         assertRadius(radius);
@@ -111,13 +111,6 @@ public class SphericalCoordinate extends AbstractCoordinate {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        assertLatitude(latitude);
-        this.latitude = latitude;
-
-        assertClassInvariant();
-    }
-
     /**
      * Gets the Longitude.
      * (abbreviation: Long., λ, or lambda)
@@ -126,25 +119,11 @@ public class SphericalCoordinate extends AbstractCoordinate {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        assertLongitude(longitude);
-        this.longitude = longitude;
-
-        assertClassInvariant();
-    }
-
     /**
      * Gets the radius
      */
     public double getRadius() {
         return radius;
-    }
-
-    public void setRadius(double radius) {
-        assertRadius(radius);
-        this.radius = radius;
-
-        assertClassInvariant();
     }
 
     @Override

@@ -52,7 +52,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return z;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
