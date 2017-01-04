@@ -29,6 +29,7 @@ import org.wahlzeit.model.persistence.EntitySizeLimitExceededException;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.model.persistence.Persistent;
 import org.wahlzeit.model.users.Client;
+import org.wahlzeit.utils.PatternInstance;
 import org.wahlzeit.utils.PhotoFactory;
 import org.wahlzeit.utils.PhotoTagCollector;
 import org.wahlzeit.utils.PhotoUtil;
@@ -41,11 +42,9 @@ import java.util.logging.Logger;
 /**
  * A photo manager provides access to and manages photos.
  */
+@PatternInstance(name = "Singleton")
 public class PhotoManager extends ObjectManager {
 
-    /**
-     *
-     */
     protected static final PhotoManager instance = new PhotoManager();
 
     private static final Logger log = Logger.getLogger(PhotoManager.class.getName());

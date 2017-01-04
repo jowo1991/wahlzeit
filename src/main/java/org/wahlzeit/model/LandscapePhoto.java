@@ -15,10 +15,12 @@ import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.UserManager;
 import org.wahlzeit.services.config.ModelConfig;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.util.Map;
 
 @Entity
+@PatternInstance(name ="Abstract Factory", participants = "ConcreteProduct")
 public class LandscapePhoto extends DataObject implements Photo {
     /**
      * Each photo can be viewed in different sizes (XS, S, M, L, XL)

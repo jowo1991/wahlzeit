@@ -7,6 +7,7 @@ import org.wahlzeit.model.CaseId;
 import org.wahlzeit.model.Globals;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.servlets.AbstractServlet;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ import static org.wahlzeit.services.OfyService.ofy;
  * 
  * @review
  */
+@PatternInstance(name = "Singleton")
 public class GlobalsManager extends ObjectManager {
 
 	private static final Logger log = Logger.getLogger(GlobalsManager.class.getName());

@@ -27,10 +27,12 @@ import org.wahlzeit.model.enums.PhotoStatus;
 import org.wahlzeit.model.persistence.Persistent;
 import org.wahlzeit.services.config.ModelConfig;
 import org.wahlzeit.model.enums.Language;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
  */
+@PatternInstance(name="Abstract Factory", participants = "AbstractProduct")
 public interface Photo extends Persistent {
     String ID = "id";
     String IMAGE = "image";

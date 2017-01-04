@@ -29,6 +29,7 @@ import org.wahlzeit.model.users.Client;
 import org.wahlzeit.model.users.User;
 import org.wahlzeit.services.mailing.EmailService;
 import org.wahlzeit.services.mailing.EmailServiceManager;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +41,7 @@ import java.util.logging.Logger;
 /**
  * The UserManager provides access to and manages Users (including Moderators and Administrators).
  */
+@PatternInstance(name = "Singleton")
 public class UserManager extends ClientManager {
 
 	private static final Logger log = Logger.getLogger(UserManager.class.getName());
