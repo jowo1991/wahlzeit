@@ -25,6 +25,7 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ import java.util.logging.Logger;
  *
  * @review
  */
+@PatternInstance(name = "Adapter", participants = {"DatastoreAdapter", "ImageStorage"})
 public class DatastoreAdapter extends ImageStorage {
 
     private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());
