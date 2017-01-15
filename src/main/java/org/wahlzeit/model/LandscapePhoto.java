@@ -8,10 +8,10 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Parent;
+import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.model.enums.PhotoSize;
 import org.wahlzeit.model.enums.PhotoStatus;
 import org.wahlzeit.model.persistence.DataObject;
-import org.wahlzeit.model.enums.Language;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.UserManager;
 import org.wahlzeit.services.config.ModelConfig;
@@ -20,7 +20,7 @@ import org.wahlzeit.utils.PatternInstance;
 import java.util.Map;
 
 @Entity
-@PatternInstance(name ="Abstract Factory", participants = "ConcreteProduct")
+@PatternInstance(name = "Abstract Factory", participants = "ConcreteProduct")
 public class LandscapePhoto extends DataObject implements Photo {
     /**
      * Each photo can be viewed in different sizes (XS, S, M, L, XL)
@@ -43,6 +43,7 @@ public class LandscapePhoto extends DataObject implements Photo {
     protected int noVotesAtLastNotification = 1;
     protected long creationTime = System.currentTimeMillis();
     protected Location location;
+    protected String type;
     /**
      * The default type is jpg
      */
@@ -271,6 +272,14 @@ public class LandscapePhoto extends DataObject implements Photo {
     @Override
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

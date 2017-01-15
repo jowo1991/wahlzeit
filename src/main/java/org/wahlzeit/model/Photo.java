@@ -136,4 +136,7 @@ public interface Photo extends Persistent {
     Location getLocation();
 
     void setLocation(Location location);
+
+    String getType();
+    void setType(String type);
 }

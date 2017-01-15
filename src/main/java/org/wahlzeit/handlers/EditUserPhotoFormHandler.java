@@ -21,7 +21,9 @@
 package org.wahlzeit.handlers;
 
 import org.wahlzeit.agents.AsyncTaskExecutor;
+import org.wahlzeit.model.LandscapeType;
 import org.wahlzeit.model.enums.AccessRights;
+import org.wahlzeit.services.LandscapeTypeManager;
 import org.wahlzeit.services.config.ModelConfig;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.services.PhotoManager;
@@ -77,6 +79,10 @@ public class EditUserPhotoFormHandler extends AbstractWebFormHandler {
 		part.addString(Photo.IS_INVISIBLE, HtmlUtil.asCheckboxCheck(photo.getStatus().isInvisible()));
 		part.addString(Photo.STATUS, config.asValueString(photo.getStatus()));
 		part.addString(Photo.UPLOADED_ON, config.asDateString(photo.getCreationTime()));
+
+		LandscapeType type = LandscapeTypeManager.getInstance().getType(photo.getType());
+		part.addString("type", type.getName());
+		part.addString("typeDescription", type.getDescription());
 	}
 
 	/**

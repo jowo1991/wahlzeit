@@ -20,15 +20,11 @@
 
 package org.wahlzeit.main;
 
-import org.wahlzeit.services.GlobalsManager;
-import org.wahlzeit.services.PhotoCaseManager;
+import org.wahlzeit.services.*;
 import org.wahlzeit.utils.PhotoFactory;
-import org.wahlzeit.services.PhotoManager;
 import org.wahlzeit.model.users.User;
-import org.wahlzeit.services.UserManager;
 import org.wahlzeit.model.persistence.DatastoreAdapter;
 import org.wahlzeit.model.persistence.ImageStorage;
-import org.wahlzeit.services.LogBuilder;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -63,6 +59,9 @@ public abstract class ModelMain extends AbstractMain {
 
 		log.config(LogBuilder.createSystemMessage().addAction("load Photos").toString());
 		PhotoManager.getInstance().init();
+
+		log.config(LogBuilder.createSystemMessage().addAction("load LandscapeTypes").toString());
+		LandscapeTypeManager.getInstance().loadDefaults();
 	}
 
 
